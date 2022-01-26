@@ -7,14 +7,14 @@ var isValid = function (s) {
   const stack = [];
 
   const closeToOpen = {
-    ")": "(",
-    "]": "[",
-    "}": "{",
+    "(": ")",
+    "[": "]",
+    "{": "}",
   };
 
-  for (let i in s) {
-    if (closeToOpen.hasOwnProperty(i)) {
-      if (stack.length > 0 && stack[stack.length - 1] == close[i]) {
+  for (let i of s) {
+    if (i === closeToOpen[stack[stack.length - 1]]) {
+      if (stack.length > 0) {
         stack.pop();
       } else {
         return false;
@@ -22,7 +22,9 @@ var isValid = function (s) {
     } else {
       stack.push(i);
     }
-  }
 
-  return stack.length > 1 ? true : false;
+    return stack.length === 0;
+  }
 };
+
+console.log(isValid("()"));
